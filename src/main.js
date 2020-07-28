@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 
+import PrepareMessage from './components/PrepareMessage.vue'
 import History from './components/History.vue'
 import Home from './components/Home.vue'
 import vuetify from './plugins/vuetify';
@@ -20,8 +21,13 @@ const router = new VueRouter({
       path: '/history',
       name: 'History',
       component: History
+    },
+    {
+      path: '/preparemessage',
+      name: 'PrepareMessage',
+      component: PrepareMessage
     }
-]
+  ]
 })
 
 new Vue({

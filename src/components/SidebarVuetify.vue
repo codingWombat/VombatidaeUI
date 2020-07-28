@@ -29,11 +29,10 @@ export default {
       items: [
         { title: "Home", icon: "fas fa-home", route: "/" },
         { title: "History", icon: "fas fa-history", route: "/history" },
-        { title: "Configuration", icon: "fas fa-tools", route: "/" },
         {
           title: "Prepare Messages",
           icon: "fas fa-envelope-open-text",
-          route: "/",
+          route: "/preparemessage",
         },
       ],
     };
