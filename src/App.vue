@@ -7,7 +7,6 @@
 
 <script>
 import Sidebar from "./components/Sidebar.vue";
-import axios from "axios";
 
 export default {
   name: "App",
