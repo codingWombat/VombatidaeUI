@@ -1,8 +1,16 @@
 <template>
   <div>
     <img alt="codingWombat logo" src="../assets/codingWombat.jpg" />
-    <p>Burrow Guid: {{ guid }}</p>
-    <button @click="getBurrow">Get Burrow</button>
+    <v-container fluid>
+      <v-row>
+        <v-text-field
+          v-model="guid"
+          label="Get new burrow id:"
+          :append-outer-icon="'mdi-radioactive'"
+          @click:append-outer="getBurrow()"
+        ></v-text-field>
+      </v-row>
+    </v-container>
   </div>
 </template>
 

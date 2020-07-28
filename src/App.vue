@@ -1,28 +1,28 @@
 <template>
-  <div id="app">
-    <Sidebar />
-    <router-view />
-  </div>
+  <v-app>
+    <!-- Sizes your content based upon application components -->
+    <SidebarVuetify />
+    <v-main>
+      <v-container>
+        <v-row justify="center">
+          <router-view />
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import Sidebar from "./components/Sidebar.vue";
-
+import SidebarVuetify from "./components/SidebarVuetify";
 export default {
   name: "App",
+
   components: {
-    Sidebar,
+    SidebarVuetify,
   },
+
+  data: () => ({
+    //
+  }),
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
