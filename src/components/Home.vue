@@ -26,7 +26,7 @@ export default {
   methods: {
     getBurrow() {
       axios
-        .get("https://localhost:5001/Vombatidae/Burrow")
+        .get("https://api.codingwombat.dev:5001/Vombatidae/Burrow")
         .then(response => (this.guid = response.data.id))
         .then(() => navigator.clipboard.writeText(this.guid));
     }

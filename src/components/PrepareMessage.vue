@@ -39,7 +39,7 @@ export default {
     },
     sendRequest() {
       let tmp =
-        "https://localhost:5001/Vombatidae/Feed/" +
+        "https://api.codingwombat.dev:5001/Vombatidae/Feed/" +
         this.guid +
         "/" +
         this.method;

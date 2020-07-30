@@ -46,7 +46,7 @@ export default {
   methods: {
     getHistory() {
       if (this.guid !== "") {
-        let tmp = "https://localhost:5001/Vombatidae/history/" + this.guid;
+        let tmp = "https://api.codingwombat.dev:5001/Vombatidae/history/" + this.guid;
         axios.get(tmp).then(response => (this.history = response.data));
       }
     }
