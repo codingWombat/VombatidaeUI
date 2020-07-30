@@ -40,19 +40,16 @@ export default {
   data() {
     return {
       guid: "00000000-0000-0000-0000-000000000000",
-      history: Object,
+      history: Object
     };
   },
   methods: {
     getHistory() {
       if (this.guid !== "") {
-        console.log(this.guid);
         let tmp = "https://localhost:5001/Vombatidae/history/" + this.guid;
-        axios.get(tmp).then((response) => (this.history = response.data));
-        console.log(this.history.Id);
-        console.log(this.guid);
+        axios.get(tmp).then(response => (this.history = response.data));
       }
-    },
-  },
+    }
+  }
 };
 </script>
