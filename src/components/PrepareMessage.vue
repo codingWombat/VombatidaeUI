@@ -3,8 +3,8 @@
     <img alt="codingWombat logo" src="../assets/codingWombat.jpg" />
     <v-container fluid>
       <v-text-field v-model="guid" label="Prepare message for id:"></v-text-field>
-      <v-select :items="methods" label="Request type" solo :value="method"></v-select>
-      <v-select :items="returncodes" label="Return code" solo :value="returncode"></v-select>
+      <v-select :items="methods" label="Request type" solo v-model="method"></v-select>
+      <v-select :items="returncodes" label="Return code" solo v-model="returncode"></v-select>
       <v-jsoneditor
         v-model="json"
         :options="{ mode: 'code' }"
