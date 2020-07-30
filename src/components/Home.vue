@@ -20,15 +20,16 @@ import axios from "axios";
 export default {
   data() {
     return {
-      guid: "00000000-0000-0000-0000-000000000000",
+      guid: "00000000-0000-0000-0000-000000000000"
     };
   },
   methods: {
     getBurrow() {
       axios
         .get("https://localhost:5001/Vombatidae/Burrow")
-        .then((response) => (this.guid = response.data.id));
-    },
-  },
+        .then(response => (this.guid = response.data.id))
+        .then(() => navigator.clipboard.writeText(this.guid));
+    }
+  }
 };
 </script>
