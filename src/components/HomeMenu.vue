@@ -6,6 +6,17 @@
       <v-toolbar-title>Vombatidae</v-toolbar-title>
 
       <v-spacer></v-spacer>
+      <v-btn @click="goHome()" icon>
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
+
+      <v-btn @click="goHistory()" icon>
+        <v-icon>mdi-history</v-icon>
+      </v-btn>
+
+      <v-btn @click="goPrepare()" icon>
+        <v-icon>mdi-message-draw</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -47,19 +58,6 @@ export default {
   data() {
     return {
       drawer: false,
-      items: [
-        { title: "Home", icon: "fas fa-home", route: "/" },
-        {
-          title: "History",
-          icon: "fas fa-history",
-          route: "/history/" + this.$parent.guid,
-        },
-        {
-          title: "Prepare Messages",
-          icon: "fas fa-envelope-open-text",
-          route: "/preparemessage/" + this.$parent.guid,
-        },
-      ],
     };
   },
   methods: {

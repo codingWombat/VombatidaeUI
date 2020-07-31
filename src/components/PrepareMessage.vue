@@ -65,10 +65,17 @@ export default {
         this.guid +
         "/" +
         this.method;
-      axios.put(tmp, {
-        StatusCode: this.returncode,
-        ResponseMessage: this.json,
-      });
+      axios
+        .put(tmp, {
+          StatusCode: this.returncode,
+          ResponseMessage: this.json,
+        })
+        .then(() =>
+          this.$router.replace({
+            name: "PrepareMessage",
+            params: { guid: this.guid },
+          })
+        );
     },
   },
 };

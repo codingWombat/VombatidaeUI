@@ -71,7 +71,15 @@ export default {
       if (this.guid !== "") {
         let tmp =
           "https://api.codingwombat.dev:5001/Vombatidae/history/" + this.guid;
-        axios.get(tmp).then((response) => (this.history = response.data));
+        axios
+          .get(tmp)
+          .then((response) => (this.history = response.data))
+          .then(() =>
+            this.$router.replace({
+              name: "History",
+              params: { guid: this.guid },
+            })
+          );
       }
     },
   },
