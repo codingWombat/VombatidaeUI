@@ -17,6 +17,7 @@
       <v-btn @click="goPrepare()" icon>
         <v-icon>mdi-message-draw</v-icon>
       </v-btn>
+      <ReadMe :dialog="showDialog"></ReadMe>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -50,7 +51,10 @@
 
 
 <script>
+import ReadMe from "./ReadMe";
 export default {
+  components: { ReadMe },
+
   props: {
     guid: String,
   },
@@ -58,6 +62,7 @@ export default {
   data() {
     return {
       drawer: false,
+      showDialog: false,
     };
   },
   methods: {
