@@ -15,7 +15,7 @@
             style="width:350px"
             v-model="guid"
             label="Load history for id:"
-            :append-outer-icon="'mdi-radioactive'"
+            :append-outer-icon="'mdi-history'"
             @click:append-outer="getHistory()"
           ></v-text-field>
         </v-row>
