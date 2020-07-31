@@ -18,14 +18,16 @@ const router = new VueRouter({
       component: Home
     },
     {
-      path: '/history',
+      path: '/history/:guid',
       name: 'History',
-      component: History
+      component: History,
+      props: true
     },
     {
-      path: '/preparemessage',
+      path: '/preparemessage/:guid',
       name: 'PrepareMessage',
-      component: PrepareMessage
+      component: PrepareMessage,
+      props: true
     }
   ]
 })
