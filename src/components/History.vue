@@ -19,30 +19,35 @@
             @click:append-outer="getHistory()"
           ></v-text-field>
         </v-row>
-        <v-row>
-          <v-card class="overflow-hidden" width="100%">
-            <v-sheet
-              id="scrolling-techniques-3"
-              class="overflow-y-auto"
-              max-height="700"
-              width="100%"
-            >
-              <v-col v-for="(item, i) in history" :key="i" cols="12">
-                <v-card class="mx-auto" outlined>
-                  <v-list-item three-line>
-                    <v-list-item-content>
-                      <div class="overline mb-4">{{item.id}}</div>
-                      <v-list-item-title class="headline mb-1">{{item.httpMethod}}</v-list-item-title>
-                      <v-list-item-subtitle>{{item.timestamp}}</v-list-item-subtitle>
-                      <div class="overline mb-1">Request:</div>
-                      <JsonView :data="item.requestBody"></JsonView>
-                      <div class="overline mb-1">Response:</div>
-                      <JsonView :data="item.responseBody"></JsonView>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-card>
-              </v-col>
-            </v-sheet>
+        <v-row v-if="this.showList">
+          <v-card v-if="history.length != 0">
+            <v-container>
+              <v-timeline>
+                <v-timeline-item v-for="(item, i) in history" :key="i" color="purple accent-4">
+                  <template v-slot:opposite>
+                    <div class="headline mb-1">{{item.httpMethod}}</div>
+                    <span class="overline mb-4" v-text="item.timestamp"></span>
+                  </template>
+                  <v-card class="mx-auto" outlined>
+                    <v-list-item three-line>
+                      <v-list-item-content>
+                        <div class="overline mb-4">{{item.id}}</div>
+                        <div v-if="Object.keys(item.requestBody).length > 0">
+                          <div class="overline mb-1">Request:</div>
+                          <JsonView :data="item.requestBody"></JsonView>
+                        </div>
+                        <div v-if="item.queryParams.length > 0">
+                          <div class="overline mb-1">Query params</div>
+                          <JsonView :data="item.queryParams"></JsonView>
+                        </div>
+                        <div class="overline mb-1">Response:</div>
+                        <JsonView :data="item.responseBody"></JsonView>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-card>
+                </v-timeline-item>
+              </v-timeline>
+            </v-container>
           </v-card>
         </v-row>
         <v-row>
@@ -57,6 +62,7 @@
           >Error: {{errormessage}}</v-alert>
         </v-row>
       </v-container>
+      <GoTop bg-color="#aa00ff" />
     </v-container>
   </div>
 </template>
@@ -65,9 +71,10 @@
 import axios from "axios";
 import JsonView from "./JsonView";
 import HomeMenu from "./HomeMenu";
+import GoTop from "@inotom/vue-go-top";
 
 export default {
-  components: { JsonView, HomeMenu },
+  components: { JsonView, HomeMenu, GoTop },
   data() {
     return {
       guid:
@@ -78,6 +85,7 @@ export default {
       errormessageString: "Loading history failed with errorcode: ",
       errormessage: "",
       showAlert: false,
+      showList: false,
     };
   },
   methods: {
@@ -88,6 +96,7 @@ export default {
         axios
           .get(tmp)
           .then((response) => (this.history = response.data))
+          .then(() => (this.showList = true))
           .then(() =>
             this.$router.replace({
               name: "History",
