@@ -17,6 +17,11 @@
       <v-btn @click="goPrepare()" icon>
         <v-icon>mdi-message-draw</v-icon>
       </v-btn>
+
+      <v-btn @click="goLoadMessage()" icon>
+        <v-icon>mdi-message-text</v-icon>
+      </v-btn>
+
       <ReadMe :dialog="showDialog"></ReadMe>
     </v-app-bar>
 
