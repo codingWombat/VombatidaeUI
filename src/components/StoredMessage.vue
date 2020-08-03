@@ -13,21 +13,14 @@
           <v-col>
             <v-text-field
               v-model="guid"
-              label="Prepare message for id:"
+              label="Show stored message for id:"
               class="shrink"
               style="width:350px"
             ></v-text-field>
             <v-select :items="methods" label="Request type" solo v-model="method"></v-select>
-            <v-select :items="returncodes" label="Return code" solo v-model="returncode"></v-select>
-            <v-jsoneditor
-              v-model="json"
-              :options="{ mode: 'code' }"
-              :plus="false"
-              height="400px"
-              @error="onError"
-            ></v-jsoneditor>
+            <JsonView v-if="json != ''" :data="json"></JsonView>
             <br />
-            <v-btn depressed @click="sendRequest()">Prepare message</v-btn>
+            <v-btn depressed @click="sendRequest()">Load prepared message</v-btn>
           </v-col>
           <v-spacer></v-spacer>
         </v-container>
@@ -38,10 +31,10 @@
 
 <script>
 import axios from "axios";
-import VJsoneditor from "v-jsoneditor";
+import JsonView from "./JsonView";
 import HomeMenu from "./HomeMenu";
 export default {
-  components: { VJsoneditor, HomeMenu },
+  components: { JsonView, HomeMenu },
   data() {
     return {
       guid:
@@ -51,8 +44,6 @@ export default {
       json: "",
       method: "GET",
       methods: ["GET", "POST", "PUT", "DELETE"],
-      returncode: 200,
-      returncodes: [200, 202, 401, 403, 404, 500],
     };
   },
   methods: {
@@ -66,13 +57,11 @@ export default {
         "/" +
         this.method;
       axios
-        .put(tmp, {
-          StatusCode: this.returncode,
-          ResponseMessage: this.json,
-        })
+        .get(tmp)
+        .then((response) => (this.json = response.data))
         .then(() =>
           this.$router.replace({
-            name: "PrepareNewMessage",
+            name: "LoadStoredMessage",
             params: { guid: this.guid },
           })
         );

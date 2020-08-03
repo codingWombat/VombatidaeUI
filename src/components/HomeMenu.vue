@@ -41,7 +41,13 @@
             <v-list-item-icon>
               <v-icon>mdi-message-draw</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Prepare Messages</v-list-item-title>
+            <v-list-item-title>Prepare messages</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="goLoadMessage()">
+            <v-list-item-icon>
+              <v-icon>mdi-message-text</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Load stored messages</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -74,13 +80,19 @@ export default {
     },
     goPrepare() {
       this.$router.push({
-        name: "PrepareMessage",
+        name: "PrepareNewMessage",
         params: { guid: this.guid },
       });
     },
     goHome() {
       this.$router.push({
         name: "Home",
+      });
+    },
+    goLoadMessage() {
+      this.$router.push({
+        name: "LoadStoredMessage",
+        params: { guid: this.guid },
       });
     },
   },

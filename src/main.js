@@ -3,6 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 
 import PrepareMessage from './components/PrepareMessage.vue'
+import StoredMessage from './components/StoredMessage.vue'
 import History from './components/History.vue'
 import Home from './components/Home.vue'
 import vuetify from './plugins/vuetify';
@@ -24,9 +25,15 @@ const router = new VueRouter({
       props: true
     },
     {
-      path: '/preparemessage/:guid',
-      name: 'PrepareMessage',
+      path: '/preparemessage/new/:guid',
+      name: 'PrepareNewMessage',
       component: PrepareMessage,
+      props: true
+    },
+    {
+      path: '/preparemessage/stored/:guid',
+      name: 'LoadStoredMessage',
+      component: StoredMessage,
       props: true
     }
   ]
