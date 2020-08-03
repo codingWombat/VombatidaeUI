@@ -9,7 +9,7 @@
       <v-container>
         <br />
         <br />
-        <v-row justify="start">
+        <v-row align="start" justify="start">
           <v-text-field
             class="shrink"
             style="width:350px"
@@ -19,7 +19,7 @@
             @click:append-outer="getHistory()"
           ></v-text-field>
         </v-row>
-        <v-row v-if="this.showList">
+        <v-row v-if="this.showList" align="center" justify="center">
           <v-card v-if="history.length != 0">
             <v-container>
               <v-timeline>
@@ -32,14 +32,10 @@
                     <v-list-item three-line>
                       <v-list-item-content>
                         <div class="overline mb-4">{{item.id}}</div>
-                        <div v-if="Object.keys(item.requestBody).length > 0">
-                          <div class="overline mb-1">Request:</div>
-                          <JsonView :data="item.requestBody"></JsonView>
-                        </div>
-                        <div v-if="item.queryParams.length > 0">
-                          <div class="overline mb-1">Query params</div>
-                          <JsonView :data="item.queryParams"></JsonView>
-                        </div>
+                        <div class="overline mb-1">Request:</div>
+                        <JsonView :data="item.requestBody"></JsonView>
+                        <div class="overline mb-1">Query params</div>
+                        <JsonView :data="item.queryParams"></JsonView>
                         <div class="overline mb-1">Response:</div>
                         <JsonView :data="item.responseBody"></JsonView>
                       </v-list-item-content>

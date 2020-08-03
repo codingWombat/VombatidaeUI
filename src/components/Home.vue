@@ -86,6 +86,7 @@ export default {
         .then((response) => {
           this.guid = response.data.id;
           this.showSuccess = true;
+          this.showLink = true;
           this.showAlert = false;
         })
         .catch((error) => {
