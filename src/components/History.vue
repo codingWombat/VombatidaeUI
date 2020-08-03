@@ -45,6 +45,17 @@
             </v-sheet>
           </v-card>
         </v-row>
+        <v-row>
+          <v-alert
+            transition="slide-y-reverse-transition"
+            max-width="450"
+            min-width="210"
+            height="60"
+            type="error"
+            v-model="showAlert"
+            dismissible
+          >Error: {{errormessage}}</v-alert>
+        </v-row>
       </v-container>
     </v-container>
   </div>
@@ -64,6 +75,9 @@ export default {
           ? "00000000-0000-0000-0000-000000000000"
           : this.$route.params.guid,
       history: Object,
+      errormessageString: "Loading history failed with errorcode: ",
+      errormessage: "",
+      showAlert: false,
     };
   },
   methods: {
@@ -79,7 +93,17 @@ export default {
               name: "History",
               params: { guid: this.guid },
             })
-          );
+          )
+          .catch((error) => {
+            if (error.response) {
+              this.showSuccess = false;
+              this.showAlert = true;
+              this.errormessage =
+                this.errormessageString + error.response.status;
+            } else {
+              this.errormessage = this.errormessageString + error.message;
+            }
+          });
       }
     },
   },

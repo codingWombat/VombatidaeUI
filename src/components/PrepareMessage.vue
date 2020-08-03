@@ -27,7 +27,30 @@
               @error="onError"
             ></v-jsoneditor>
             <br />
-            <v-btn depressed @click="sendRequest()">Prepare message</v-btn>
+            <v-container class="pa-0">
+              <v-row>
+                <v-btn depressed @click="sendRequest()">Prepare message</v-btn>
+                <v-spacer />
+                <v-alert
+                  transition="slide-y-reverse-transition"
+                  max-width="450"
+                  min-width="210"
+                  max-height="75"
+                  type="success"
+                  v-model="showSuccess"
+                  dismissible
+                >{{successmessage}}</v-alert>
+                <v-alert
+                  transition="slide-y-reverse-transition"
+                  max-width="450"
+                  min-width="210"
+                  max-height="75"
+                  type="error"
+                  v-model="showAlert"
+                  dismissible
+                >Error: {{errormessage}}</v-alert>
+              </v-row>
+            </v-container>
           </v-col>
           <v-spacer></v-spacer>
         </v-container>
@@ -53,6 +76,11 @@ export default {
       methods: ["GET", "POST", "PUT", "DELETE"],
       returncode: 200,
       returncodes: [200, 202, 401, 403, 404, 500],
+      showAlert: false,
+      showSuccess: false,
+      successmessage: "Message prepared successfully!",
+      errormessageString: "Message preparation failed with errorcode: ",
+      errormessage: "",
     };
   },
   methods: {
@@ -70,12 +98,23 @@ export default {
           StatusCode: this.returncode,
           ResponseMessage: this.json,
         })
-        .then(() =>
+        .then(() => {
           this.$router.replace({
             name: "PrepareNewMessage",
             params: { guid: this.guid },
-          })
-        );
+          });
+          this.showSuccess = true;
+          this.showAlert = false;
+        })
+        .catch((error) => {
+          if (error.response) {
+            this.showSuccess = false;
+            this.showAlert = true;
+            this.errormessage = this.errormessageString + error.response.status;
+          } else {
+            this.errormessage = this.errormessageString + error.message;
+          }
+        });
     },
   },
 };

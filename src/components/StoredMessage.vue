@@ -19,8 +19,21 @@
             ></v-text-field>
             <v-select :items="methods" label="Request type" solo v-model="method"></v-select>
             <JsonView v-if="json != ''" :data="json"></JsonView>
-            <br />
-            <v-btn depressed @click="sendRequest()">Load prepared message</v-btn>
+            <v-container>
+              <v-row>
+                <v-btn depressed @click="sendRequest()">Load prepared message</v-btn>
+                <v-spacer />
+                <v-alert
+                  transition="slide-y-reverse-transition"
+                  max-width="450"
+                  min-width="210"
+                  max-height="75"
+                  type="error"
+                  v-model="showAlert"
+                  dismissible
+                >Error: {{errormessage}}</v-alert>
+              </v-row>
+            </v-container>
           </v-col>
           <v-spacer></v-spacer>
         </v-container>
@@ -44,6 +57,9 @@ export default {
       json: "",
       method: "GET",
       methods: ["GET", "POST", "PUT", "DELETE"],
+      errormessageString: "Loading stored message failed with errorcode: ",
+      errormessage: "",
+      showAlert: false,
     };
   },
   methods: {
@@ -64,7 +80,16 @@ export default {
             name: "LoadStoredMessage",
             params: { guid: this.guid },
           })
-        );
+        )
+        .catch((error) => {
+          if (error.response) {
+            this.showSuccess = false;
+            this.showAlert = true;
+            this.errormessage = this.errormessageString + error.response.status;
+          } else {
+            this.errormessage = this.errormessageString + error.message;
+          }
+        });
     },
   },
 };
