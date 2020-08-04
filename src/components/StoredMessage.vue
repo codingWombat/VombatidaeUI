@@ -18,6 +18,7 @@
               style="width:350px"
             ></v-text-field>
             <v-select :items="methods" label="Request type" solo v-model="method"></v-select>
+            <v-text-field v-model="path" label="Path (Optional)" prefix="/" class="shrink"></v-text-field>
             <JsonView v-if="json != ''" :data="json"></JsonView>
             <v-container>
               <v-row>
@@ -55,6 +56,7 @@ export default {
           ? "00000000-0000-0000-0000-000000000000"
           : this.$route.params.guid,
       json: "",
+      path: "",
       method: "GET",
       methods: ["GET", "POST", "PUT", "DELETE"],
       errormessageString: "Loading stored message failed with errorcode: ",
@@ -67,10 +69,13 @@ export default {
       console.log("error");
     },
     sendRequest() {
+      this.json = "";
       let tmp =
         process.env.VUE_APP_BASE_URL +
         "/Vombatidae/Feed/" +
-        this.guid;
+        this.guid +
+        "/" +
+        this.path;
       axios
         .get(tmp, {
           params: {

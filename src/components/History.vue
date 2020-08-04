@@ -25,13 +25,12 @@
               <v-timeline>
                 <v-timeline-item v-for="(item, i) in history" :key="i" color="purple accent-4">
                   <template v-slot:opposite>
-                    <div class="headline mb-1">{{item.httpMethod}}</div>
+                    <div class="headline mb-1">{{item.httpMethod}} {{item.route}}</div>
                     <span class="overline mb-4" v-text="item.timestamp"></span>
                   </template>
                   <v-card class="mx-auto" outlined>
                     <v-list-item three-line>
                       <v-list-item-content>
-                        <div class="overline mb-4">{{item.id}}</div>
                         <div class="overline mb-1">Request:</div>
                         <JsonView :data="item.requestBody"></JsonView>
                         <div class="overline mb-1">Query params</div>

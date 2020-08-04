@@ -18,6 +18,7 @@
               style="width:350px"
             ></v-text-field>
             <v-select :items="methods" label="Request type" solo v-model="method"></v-select>
+            <v-text-field v-model="path" label="Path (Optional)" prefix="/" class="shrink"></v-text-field>
             <v-select :items="returncodes" label="Return code" solo v-model="returncode"></v-select>
             <v-jsoneditor
               v-model="json"
@@ -67,6 +68,7 @@ export default {
   components: { VJsoneditor, HomeMenu },
   data() {
     return {
+      path: "",
       guid:
         this.$route.params.guid == ":guid"
           ? "00000000-0000-0000-0000-000000000000"
@@ -88,7 +90,12 @@ export default {
       console.log("error");
     },
     sendRequest() {
-      let tmp = process.env.VUE_APP_BASE_URL + "/Vombatidae/Feed/" + this.guid;
+      let tmp =
+        process.env.VUE_APP_BASE_URL +
+        "/Vombatidae/Feed/" +
+        this.guid +
+        "/" +
+        this.path;
       axios
         .put(
           tmp,
