@@ -88,16 +88,20 @@ export default {
       console.log("error");
     },
     sendRequest() {
-      let tmp =
-        "https://api.codingwombat.dev:5001/Vombatidae/Feed/" +
-        this.guid +
-        "/" +
-        this.method;
+      let tmp = process.env.VUE_APP_BASE_URL + "/Vombatidae/Feed/" + this.guid;
       axios
-        .put(tmp, {
-          StatusCode: this.returncode,
-          ResponseMessage: this.json,
-        })
+        .put(
+          tmp,
+          {
+            StatusCode: this.returncode,
+            ResponseMessage: this.json,
+          },
+          {
+            params: {
+              method: this.method,
+            },
+          }
+        )
         .then(() => {
           this.$router.replace({
             name: "PrepareNewMessage",

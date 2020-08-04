@@ -68,12 +68,15 @@ export default {
     },
     sendRequest() {
       let tmp =
-        "https://api.codingwombat.dev:5001/Vombatidae/Feed/" +
-        this.guid +
-        "/" +
-        this.method;
+        process.env.VUE_APP_BASE_URL +
+        "/Vombatidae/Feed/" +
+        this.guid;
       axios
-        .get(tmp)
+        .get(tmp, {
+          params: {
+            method: this.method,
+          },
+        })
         .then((response) => (this.json = response.data))
         .then(() =>
           this.$router.replace({

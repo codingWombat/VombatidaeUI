@@ -88,7 +88,7 @@ export default {
     getHistory() {
       if (this.guid !== "") {
         let tmp =
-          "https://api.codingwombat.dev:5001/Vombatidae/history/" + this.guid;
+          process.env.VUE_APP_BASE_URL + "/Vombatidae/history/" + this.guid;
         axios
           .get(tmp)
           .then((response) => (this.history = response.data))

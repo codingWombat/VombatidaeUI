@@ -82,7 +82,7 @@ export default {
   methods: {
     getBurrow() {
       axios
-        .get("https://api.codingwombat.dev:5001/Vombatidae/Burrow")
+        .get(process.env.VUE_APP_BASE_URL + "/Vombatidae/Burrow")
         .then((response) => {
           this.guid = response.data.id;
           this.showSuccess = true;
